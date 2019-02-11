@@ -188,4 +188,26 @@ class DoubleArcFillRotView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : DoubleArcFillRotView) {
+
+        private val animator : Animator = Animator(view)
+        private val dafr : DoubleArcFillRot = DoubleArcFillRot(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            dafr.draw(canvas, paint)
+            animator.animate {
+                dafr.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            dafr.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
