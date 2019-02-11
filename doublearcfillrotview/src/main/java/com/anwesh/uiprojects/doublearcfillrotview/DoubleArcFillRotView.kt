@@ -211,4 +211,13 @@ class DoubleArcFillRotView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : DoubleArcFillRotView {
+            val view : DoubleArcFillRotView = DoubleArcFillRotView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
