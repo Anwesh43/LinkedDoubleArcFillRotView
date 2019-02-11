@@ -24,6 +24,7 @@ val backColor : Int = Color.parseColor("#212121")
 val offsetDeg : Float = 60f
 val maxDeg : Float = 360f
 val rotDeg : Float = 90f
+val delay : Long = 25
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -41,7 +42,7 @@ fun Canvas.drawDAFRNode(i : Int, scale : Float, paint : Paint) {
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
     paint.color = foreColor
-    paint.strokeWidth = Math.min(w, h) / 60
+    paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
     save()
     translate(gap * (i + 1), h / 2)
@@ -100,7 +101,7 @@ class DoubleArcFillRotView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
